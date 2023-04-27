@@ -50,7 +50,11 @@ table {
 
 body {
 	font-family: "Nunito";
-	font-size: 50px;
+
+	--color-canceled:	#EB362C;
+	--color-done:		#74EB84;
+	--color-return:		#9400D3;
+	--color-opened:		#3E5F8A;
 }
 `;
 
