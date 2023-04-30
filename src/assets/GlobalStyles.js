@@ -51,10 +51,10 @@ table {
 body {
 	font-family: "Nunito";
 
-	--color-canceled:	#EB362C;
-	--color-done:		#74EB84;
-	--color-return:		#9400D3;
-	--color-opened:		#3E5F8A;
+	--color-canceled:	rgba(235, 54, 44, 0.4);
+	--color-done:		rgba(116, 235, 132, 0.4);
+	--color-return:		rgba(148, 0, 208, 0.4);
+	--color-opened:		rgba(62, 95, 202, 0.4);
 }
 `;
 

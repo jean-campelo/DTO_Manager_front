@@ -12,4 +12,9 @@ function postLogin(body) {
   return promise;
 }
 
-export { postNewUser, postLogin };
+function getConsultsByDate(date) {
+  const promise = axios.get(`${URL}/consults/${date}`);
+  return promise;
+}
+
+export { postNewUser, postLogin, getConsultsByDate };

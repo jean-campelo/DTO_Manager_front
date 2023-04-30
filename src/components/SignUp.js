@@ -108,7 +108,6 @@ export default function SignUp() {
   function createNewUser(body) {
     postNewUser(body)
       .then((res) => {
-        console.log(res);
         toast("Usuário criado com sucesso!");
         navigate("/home");
         setDataUser(res.data);

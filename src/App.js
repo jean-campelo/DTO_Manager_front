@@ -12,10 +12,18 @@ import HomePage from "./components/HomePage";
 export default function App() {
   const [dataUser, setDataUser] = useState({});
   const [isDisabled, setIsDisabled] = useState(false);
+  const [consults, setConsults] = useState([]);
 
   return (
     <DataContext.Provider
-      value={{ dataUser, setDataUser, isDisabled, setIsDisabled }}
+      value={{
+        dataUser,
+        setDataUser,
+        isDisabled,
+        setIsDisabled,
+        consults,
+        setConsults,
+      }}
     >
       <ToastContainer />
       <BrowserRouter>
