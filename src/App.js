@@ -15,6 +15,7 @@ export default function App() {
   const [dataUser, setDataUser] = useState({});
   const [isDisabled, setIsDisabled] = useState(false);
   const [consults, setConsults] = useState([]);
+  const [dateSelected, setDateSelected] = useState(null);
 
   return (
     <DataContext.Provider
@@ -25,6 +26,8 @@ export default function App() {
         setIsDisabled,
         consults,
         setConsults,
+        dateSelected,
+        setDateSelected,
       }}
     >
       <ToastContainer />

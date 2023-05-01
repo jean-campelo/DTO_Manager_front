@@ -7,7 +7,7 @@ import { useEffect, useState, useContext } from "react";
 
 export default function ViewMonth() {
   const [consultsMonth, setConsultsMonth] = useState([]);
-  const { dataUser } = useContext(DataContext);
+  const { dataUser, setDateSelected } = useContext(DataContext);
 
   useEffect(() => {
     const date = dayjs(new Date()).format("YYYY-MM-DD");
@@ -21,7 +21,7 @@ export default function ViewMonth() {
       <TopBar>
         <h1>{dataUser.name}</h1>
         <Link to={"/"}>
-          <h2>Sair</h2>
+          <h2 onClick={() => setDateSelected(dayjs(new Date()).format("YYYY-MM-DD"))}>Sair</h2>
         </Link>
       </TopBar>
       <ContainerConsultsMonth>
@@ -32,7 +32,9 @@ export default function ViewMonth() {
 
   function renderDays(consult) {
     return (
-      <ContainerConsults>
+        //TODO
+        <Link to={"/home"}>
+           <ContainerConsults onClick={() => setDateSelected(consult.date)}>
         <div className="day">
           <h1>{consult.day}</h1>
           <h2>{consult.weekDay}</h2>
@@ -50,6 +52,8 @@ export default function ViewMonth() {
           </div>
         </Indicators>
       </ContainerConsults>
+        </Link>
+   
     );
   }
 }

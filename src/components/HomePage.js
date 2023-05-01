@@ -9,10 +9,15 @@ import dayjs from "dayjs";
 import { toast } from "react-toastify";
 
 export default function HomePage() {
-  const { consults, setConsults, dataUser } = useContext(DataContext);
+  const { consults, setConsults, dataUser, dateSelected, setDateSelected } =
+    useContext(DataContext);
+
   useEffect(() => {
-    const date = dayjs(new Date()).format("YYYY-MM-DD");
-    getConsultsByDate(date)
+    if (!dateSelected) {
+      const today = dayjs(new Date()).format("YYYY-MM-DD");
+      setDateSelected(today);
+    }
+    getConsultsByDate(dateSelected)
       .then((res) => setConsults(res.data.consultsData))
       .catch((err) => toast(err.response.data.message));
   }, []);
@@ -23,20 +28,26 @@ export default function HomePage() {
       <TopBar>
         <h1>{dataUser.name}</h1>
         <Link to={"/"}>
-          <h2>Sair</h2>
+          <h2 onClick={() => setDateSelected(dayjs(new Date()).format("YYYY-MM-DD"))}>Sair</h2>
         </Link>
       </TopBar>
       {consultsExists ? <Indicators index={consults} /> : ""}
 
-      <ButtonsView>
-        <Link to={"/week"}>
-          <button>Semanal</button>
-        </Link>
+      <Info>
+        <div className="today">
+          Agenda para {dayjs(dateSelected).format("DD/MM")}
+        </div>
 
-        <Link to={"/month"}>
-          <button>Mensal</button>
-        </Link>
-      </ButtonsView>
+        <ButtonsView>
+          <Link to={"/week"}>
+            <button>Semanal</button>
+          </Link>
+
+          <Link to={"/month"}>
+            <button>Mensal</button>
+          </Link>
+        </ButtonsView>
+      </Info>
 
       <ConsultsContainer>
         {consultsExists ? (
@@ -95,6 +106,17 @@ const ConsultsContainer = styled.div`
     font-weight: 600;
     font-size: 30px;
     -webkit-text-stroke-width: 0.7px;
+  }
+`;
+
+const Info = styled.div`
+  width: 90vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .today {
+    color: #084d6e;
   }
 `;
 

@@ -7,7 +7,7 @@ import { getConsultsWeek } from "../services/DTO-ManagerApi.js";
 
 export default function ViewWeek() {
   const [consultsWeek, setConsultsWeek] = useState([]);
-  const { dataUser } = useContext(DataContext);
+  const { dataUser, setDateSelected, dateSelected } = useContext(DataContext);
 
   useEffect(() => {
     const date = dayjs(new Date()).format("YYYY-MM-DD");
@@ -20,6 +20,9 @@ export default function ViewWeek() {
     <Container>
       <TopBar>
         <h1>{dataUser.name}</h1>
+        <Link to={"/home"}>
+          <h2>Início</h2>
+        </Link>
         <Link to={"/"}>
           <h2>Sair</h2>
         </Link>
@@ -32,29 +35,32 @@ export default function ViewWeek() {
 
   function renderDay(consult) {
     return (
-      <Day>
-        <div className="date">
-          <h1>{consult.day}</h1>
-          <h2>{consult.month}</h2>
-        </div>
-        <div className="weekDay">{consult.weekDay}</div>
+      <Link to={"/home"}>
+        <Day onClick={() => setDateSelected(consult.date)}>
+          <div className="date">
+            <h1>{consult.day}</h1>
+            <h2>{consult.month}</h2>
+          </div>
+          <div className="weekDay">{consult.weekDay}</div>
 
-        <Indicators>
-          <div className="total">
-            Programados <h1>{consult.consultDay.indicators.consultsTotal}</h1>
-          </div>
-          <div className="done">
-            Realizadas <h1>{consult.consultDay.indicators.consultsDone}</h1>
-          </div>
-          <div className="canceled">
-            Cancelados <h1>{consult.consultDay.indicators.consultsCanceled}</h1>
-          </div>
-        </Indicators>
+          <Indicators>
+            <div className="total">
+              Programados <h1>{consult.consultDay.indicators.consultsTotal}</h1>
+            </div>
+            <div className="done">
+              Realizadas <h1>{consult.consultDay.indicators.consultsDone}</h1>
+            </div>
+            <div className="canceled">
+              Cancelados{" "}
+              <h1>{consult.consultDay.indicators.consultsCanceled}</h1>
+            </div>
+          </Indicators>
 
-        <ConsultDay>
-          {consult.consultDay.consults.map((item) => renderConsultsDay(item))}
-        </ConsultDay>
-      </Day>
+          <ConsultDay>
+            {consult.consultDay.consults.map((item) => renderConsultsDay(item))}
+          </ConsultDay>
+        </Day>
+      </Link>
     );
   }
 
@@ -109,6 +115,7 @@ const Day = styled.div`
   height: 300px;
   margin: 0 6px;
   overflow: scroll;
+  cursor: pointer;
 
   .date,
   .weekDay {
