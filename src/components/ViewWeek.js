@@ -170,6 +170,7 @@ const ConsultCard = styled.div`
     ${({ status }) => (status === "CANCELADO" ? "red" : "#b5bac9")};
   text-decoration: ${({ status }) =>
     status === "CANCELADO" ? "line-through" : "none"};
+  opacity: ${({ status }) => (status === "CANCELADO" ? "0.5" : "1")};
 
   .doctor {
     background-color: #b5bac9;

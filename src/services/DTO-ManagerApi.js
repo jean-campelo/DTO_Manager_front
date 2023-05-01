@@ -18,4 +18,14 @@ function getConsultsWeek(date) {
   return axios.get(`${URL}/consults/week/${date}`);
 }
 
-export { postNewUser, postLogin, getConsultsByDate, getConsultsWeek };
+function getConsultsMonth(date) {
+  return axios.get(`${URL}/consults/month/${date}`);
+}
+
+export {
+  postNewUser,
+  postLogin,
+  getConsultsByDate,
+  getConsultsWeek,
+  getConsultsMonth,
+};
