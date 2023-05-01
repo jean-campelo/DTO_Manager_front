@@ -3,18 +3,19 @@ import axios from "axios";
 const URL = "http://localhost:5000";
 
 function postNewUser(body) {
-  const promise = axios.post(`${URL}/users/sign-up`, body);
-  return promise;
+  return axios.post(`${URL}/users/sign-up`, body);
 }
 
 function postLogin(body) {
-  const promise = axios.post(`${URL}/users/sign-in`, body);
-  return promise;
+  return axios.post(`${URL}/users/sign-in`, body);
 }
 
 function getConsultsByDate(date) {
-  const promise = axios.get(`${URL}/consults/${date}`);
-  return promise;
+  return axios.get(`${URL}/consults/${date}`);
 }
 
-export { postNewUser, postLogin, getConsultsByDate };
+function getConsultsWeek(date) {
+  return axios.get(`${URL}/consults/week/${date}`);
+}
+
+export { postNewUser, postLogin, getConsultsByDate, getConsultsWeek };

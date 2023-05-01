@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import DataContext from "../context/dataContext.js";
 import { getConsultsByDate } from "../services/DTO-ManagerApi.js";
 import ConsultsDate from "./ConsultsDate.js";
@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 
 export default function HomePage() {
   const { consults, setConsults, dataUser } = useContext(DataContext);
-  let navigate = useNavigate();
   useEffect(() => {
     const date = dayjs(new Date()).format("YYYY-MM-DD");
     getConsultsByDate(date)
@@ -28,7 +27,16 @@ export default function HomePage() {
         </Link>
       </TopBar>
       {consultsExists ? <Indicators index={consults} /> : ""}
-      {console.log(consults)}
+
+      <ButtonsView>
+        <Link to={"/week"}>
+          <button>Semanal</button>
+        </Link>
+
+        <Link to={"/month"}>
+          <button>Mensal</button>
+        </Link>
+      </ButtonsView>
 
       <ConsultsContainer>
         {consultsExists ? (
@@ -63,7 +71,7 @@ const TopBar = styled.div`
     color: #fff;
     font-size: 20px;
   }
-  
+
   h2 {
     cursor: pointer;
     color: #a1deff;
@@ -76,7 +84,6 @@ const TopBar = styled.div`
 `;
 
 const ConsultsContainer = styled.div`
-  margin-top: 30px;
   border-radius: 10px;
   width: 90%;
   height: 500px;
@@ -88,5 +95,26 @@ const ConsultsContainer = styled.div`
     font-weight: 600;
     font-size: 30px;
     -webkit-text-stroke-width: 0.7px;
+  }
+`;
+
+const ButtonsView = styled.div`
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 10px;
+
+  button {
+    width: 80px;
+    height: 30px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    font-size: 14px;
+
+    :hover {
+      cursor: pointer;
+      background-color: #a1deff;
+    }
   }
 `;

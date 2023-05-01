@@ -8,6 +8,8 @@ import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 import Introduction from "./components/Introduction";
 import HomePage from "./components/HomePage";
+import ViewMonth from "./components/ViewMonth";
+import ViewWeek from "./components/ViewWeek";
 
 export default function App() {
   const [dataUser, setDataUser] = useState({});
@@ -33,6 +35,8 @@ export default function App() {
           <Route path="/register" element={<SignUp />} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/week" element={<ViewWeek />} />
+          <Route path="/month" element={<ViewMonth />} />
         </Routes>
       </BrowserRouter>
     </DataContext.Provider>
