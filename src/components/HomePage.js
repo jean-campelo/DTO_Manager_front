@@ -1,14 +1,16 @@
 import styled from "styled-components";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import DataContext from "../context/dataContext.js";
 import { getConsultsByDate } from "../services/DTO-ManagerApi.js";
 import ConsultsDate from "./ConsultsDate.js";
+import Indicators from "./Indicators.js";
 import dayjs from "dayjs";
 import { toast } from "react-toastify";
 
 export default function HomePage() {
-  const {consults, setConsults} = useContext(DataContext);
-
+  const { consults, setConsults, dataUser } = useContext(DataContext);
+  let navigate = useNavigate();
   useEffect(() => {
     const date = dayjs(new Date()).format("YYYY-MM-DD");
     getConsultsByDate(date)
@@ -16,14 +18,20 @@ export default function HomePage() {
       .catch((err) => toast(err.response.data.message));
   }, []);
 
-  const existsConsults = consults.length !== 0;
+  const consultsExists = consults.length !== 0;
   return (
     <Main>
       <TopBar>
-        <h1>Name clinic</h1>
+        <h1>{dataUser.name}</h1>
+        <Link to={"/"}>
+          <h2>Sair</h2>
+        </Link>
       </TopBar>
+      {consultsExists ? <Indicators index={consults} /> : ""}
+      {console.log(consults)}
+
       <ConsultsContainer>
-        {existsConsults ? (
+        {consultsExists ? (
           <ConsultsDate consult={consults.consults} />
         ) : (
           <div className="message">Não há consultas</div>
@@ -46,12 +54,24 @@ const TopBar = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-color: #084d6e;
+  padding: 20px;
 
   h1 {
     margin-left: 20px;
     color: #fff;
     font-size: 20px;
+  }
+  
+  h2 {
+    cursor: pointer;
+    color: #a1deff;
+
+    :hover {
+      filter: brightness(220%);
+      color: #fff;
+    }
   }
 `;
 
